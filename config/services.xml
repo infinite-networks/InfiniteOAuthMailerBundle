@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="env(MAILER_FALLBACK_DSN)">sendmail://localhost</parameter>
+    </parameters>
+
+    <services>
+        <service id="Infinite\OAuthMailerBundle\Mailer\OAuthManager">
+            <argument type="service" id="Infinite\OAuthMailerBundle\Mailer\OAuthTransportFactory" />
+            <argument>%env(MAILER_DSN)%</argument>
+            <argument type="service" id="Infinite\OAuthMailerBundle\Repository\OAuthMailerStorageRepository" />
+        </service>
+
+        <service id="Infinite\OAuthMailerBundle\Mailer\OAuthTransportFactory">
+            <argument type="service" id="event_dispatcher" on-invalid="null" />
+            <argument type="service" id="logger" on-invalid="null" />
+            <argument type="service" id="Infinite\OAuthMailerBundle\Repository\OAuthMailerStorageRepository" />
+            <argument>%env(MAILER_FALLBACK_DSN)%</argument>
+            <argument type="service" id="mailer.transport_factory" />
+            <tag name="mailer.transport_factory" />
+            <call method="setManager">
+                <argument type="service" id="Infinite\OAuthMailerBundle\Mailer\OAuthManager"/>
+            </call>
+        </service>
+
+        <service id="Infinite\OAuthMailerBundle\Repository\OAuthMailerStorageRepository">
+            <argument type="service" id="doctrine" />
+        </service>
+
+        <service id="Infinite\OAuthMailerBundle\Command\OAuthRefreshCommand">
+            <argument type="service" id="Infinite\OAuthMailerBundle\Mailer\OAuthManager" />
+            <argument type="service" id="Infinite\OAuthMailerBundle\Repository\OAuthMailerStorageRepository" />
+            <tag name="console.command" />
+            <tag name="container.no_preload" />
+        </service>
+    </services>
+
+</container>
+
+

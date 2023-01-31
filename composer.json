@@ -1,0 +1,18 @@
+{
+    "name": "infinite-networks/oauth-mailer-bundle",
+    "description": "Infinite Networks OAuth mailer bundle",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": { "Infinite\\OAuthMailerBundle\\": "" }
+    },
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "php": ">=7.2",
+        "doctrine/orm": ">=2.7",
+        "league/oauth2-client": "^2.6",
+        "symfony/console": ">=6.2",
+        "symfony/dependency-injection": ">=6.2",
+        "symfony/mailer": ">=6.2"
+    }
+}
