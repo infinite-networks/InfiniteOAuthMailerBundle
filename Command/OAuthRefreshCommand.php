@@ -4,20 +4,20 @@ namespace Infinite\OAuthMailerBundle\Command;
 
 use Infinite\OAuthMailerBundle\Mailer\OAuthManager;
 use Infinite\OAuthMailerBundle\Repository\OAuthMailerStorageRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'oauth:refresh')]
 class OAuthRefreshCommand extends Command
 {
-    protected static $defaultName = 'oauth:refresh';
-
     public function __construct(
         private OAuthManager $manager,
         private OAuthMailerStorageRepository $repository,
     ) {
-        parent::__construct(self::$defaultName);
+        parent::__construct();
     }
 
     protected function configure()
