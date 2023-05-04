@@ -7,32 +7,39 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
+#[ORM\Entity]
 class OAuthMailerStorage
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
     private int $id = 1;
 
     /**
      * @ORM\Column(type="string", length=254)
      */
+    #[ORM\Column(type: 'string', length: 254)]
     private string $username = '';
 
     /**
      * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: 'text')]
     private string $accessToken = '';
 
     /**
      * @ORM\Column(type="datetime")
      */
+    #[ORM\Column(type: 'datetime')]
     private \DateTime $accessTokenExpires;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: 'text')]
     private string $refreshToken = '';
 
     public function __construct()
